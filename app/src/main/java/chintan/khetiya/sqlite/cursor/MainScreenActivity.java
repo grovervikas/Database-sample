@@ -14,17 +14,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-
-public class Main_Screen extends Activity {
+/**
+ * @author vikas.grover
+ *         Main Activity Class
+ */
+public class MainScreenActivity extends Activity {
 
 
     private Button add_btn;
     private ListView Contact_listview;
-    private ArrayList<Student> students = new ArrayList<Student>();
+    private ArrayList<StudentData> students = new ArrayList<StudentData>();
     private Contact_Adapter cAdapter;
     private DatabaseHandler db;
 
@@ -39,8 +41,6 @@ public class Main_Screen extends Activity {
             add_btn = (Button) findViewById(R.id.add_btn);
             Set_Referash_Data();
             db = new DatabaseHandler(this);
-
-
         } catch (Exception e) {
             Log.e("some error", "" + e);
         }
@@ -50,55 +50,48 @@ public class Main_Screen extends Activity {
             @Override
             public void onClick(View v) {
 
-                Intent add_user = new Intent(Main_Screen.this, Add_Update_User.class);
+                Intent add_user = new Intent(MainScreenActivity.this, AddNewUserActivity.class);
                 add_user.putExtra("called", "add");
                 add_user.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(add_user);
-                finish();
 
             }
         });
     }
 
     public void Call_My_Blog(View v) {
-        Intent intent = new Intent(Main_Screen.this, My_Blog.class);
+        Intent intent = new Intent(MainScreenActivity.this, My_Blog.class);
         startActivity(intent);
 
     }
 
     public void Set_Referash_Data() {
+
         students.clear();
         db = new DatabaseHandler(this);
-        ArrayList<Student> contact_array_from_db = db.getAllStudent();
-        ArrayList<FinalResult> arrayList = db.getAllStudentResult();
+        ArrayList<StudentData> contact_array_from_db = db.getAllStudentData();
         students.addAll(contact_array_from_db);
         db.close();
-        cAdapter = new Contact_Adapter(Main_Screen.this, R.layout.listview_row, students);
+        cAdapter = new Contact_Adapter(MainScreenActivity.this, R.layout.listview_row, students);
         Contact_listview.setAdapter(cAdapter);
         cAdapter.notifyDataSetChanged();
     }
 
-    public void Show_Toast(String msg) {
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-    }
 
     @Override
     public void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
         Set_Referash_Data();
-
-
     }
 
-    public class Contact_Adapter extends ArrayAdapter<Student> {
+    public class Contact_Adapter extends ArrayAdapter<StudentData> {
         Activity activity;
         int layoutResourceId;
-        Student user;
-        ArrayList<Student> data = new ArrayList<Student>();
+        StudentData user;
+        ArrayList<StudentData> data = new ArrayList<StudentData>();
 
         public Contact_Adapter(Activity act, int layoutResourceId,
-                               ArrayList<Student> data) {
+                               ArrayList<StudentData> data) {
             super(act, layoutResourceId, data);
             this.layoutResourceId = layoutResourceId;
             this.activity = act;
@@ -110,7 +103,7 @@ public class Main_Screen extends Activity {
         public View getView(int position, View convertView, ViewGroup parent) {
             View row = convertView;
             UserHolder holder = null;
-
+;
             if (row == null) {
                 LayoutInflater inflater = LayoutInflater.from(activity);
 
@@ -128,23 +121,15 @@ public class Main_Screen extends Activity {
             holder.btn_update.setTag(user.studentId);
             holder.btn_delete.setTag(user.studentId);
             holder.student_name.setText(user.studentName);
-            holder.student_course.setText(user.studentCourse);
 
             holder.btn_update.setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
 
-//                    Intent update_user = new Intent(activity, Add_Update_User.class);
-//                    update_user.putExtra("called", "update");
-//                    update_user.putExtra("USER_ID", v.getTag().toString());
-//                    activity.startActivity(update_user);
-                    db = new DatabaseHandler(Main_Screen.this);
-                    students.clear();
-                    students.addAll(db.fireRowQuery());
-                    cAdapter.notifyDataSetChanged();
-
-
+                    Intent update_user = new Intent(activity, UpdateStudentActivity.class);
+                    update_user.putExtra("USER_ID", v.getTag().toString());
+                    activity.startActivity(update_user);
 
                 }
             });
@@ -154,7 +139,6 @@ public class Main_Screen extends Activity {
                     AlertDialog.Builder adb = new AlertDialog.Builder(activity);
                     adb.setTitle("Delete?");
                     adb.setMessage("Are you sure you want to delete ");
-                    final int user_id = Integer.parseInt(v.getTag().toString());
                     adb.setNegativeButton("Cancel", null);
                     adb.setPositiveButton("Ok",
                             new AlertDialog.OnClickListener() {
@@ -163,15 +147,15 @@ public class Main_Screen extends Activity {
                                                     int which) {
                                     DatabaseHandler dBHandler = new DatabaseHandler(
                                             activity.getApplicationContext());
-                                    dBHandler.delete_Student(user_id);
-                                    Main_Screen.this.onResume();
+                                    dBHandler.deleteStudentData(v.getTag().toString());
+                                    MainScreenActivity.this.onResume();
+
                                 }
                             });
                     adb.show();
                 }
             });
             return row;
-
         }
 
         class UserHolder {

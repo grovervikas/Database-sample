@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/build/intermediates/res/merged/debug/layout/activity_update_student.xml",
+        "source": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/src/main/res/layout/activity_update_student.xml"
+    },
+    {
         "merged": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/build/intermediates/res/merged/debug/layout/add_update_screen.xml",
         "source": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/src/main/res/layout/add_update_screen.xml"
     },

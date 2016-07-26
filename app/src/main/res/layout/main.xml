@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/textView1"
             android:layout_gravity="bottom"
+            android:visibility="gone"
             android:onClick="Call_My_Blog"
             android:src="@drawable/wp" />
 

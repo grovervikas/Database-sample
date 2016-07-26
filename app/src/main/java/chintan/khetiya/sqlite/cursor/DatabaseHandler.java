@@ -15,47 +15,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION 	= 	1;
     // Database Name
-    private static final String DATABASE_NAME = "contactsManager";
+    private static final String DATABASE_NAME 	= 	"my_data_base";
 
-    // Contacts table name
-    private static final String TABLE_CONTACTS = "contacts";
-	// student table
-	private static final String TABLE_STUDENT = "student_table";
-	// student data table
-	private static final String TABLE_STUDENT_DATA = "student_table_data";
-	// final result
-	private static final String TABLE_FINAL_RESULT = "student_result";
+	//Database Tables
+	//Student Data table
+	private static final String TABLE_STUDENT_DATA = "StudentData";
 
-
+	//Student Data Record
+	private static final String TABLE_STUDENT_RECORD = "StudentRecord";
 
 
 	// student table columns names
-	private static final String studentId = "studentId";
-	private static final String studentName = "studentName";
-	private static final String studentCourse = "studentCourse";
-	private static final String studentKey = "studentKey";
-
+	private static final String studentId 		= 		"studentId";
+	private static final String studentName 	= 		"studentName";
 
 	//student data table columns names
-	private static final String studentDataId = "studentId";
-	private static final String studentFName = "studentFName";
-	private static final String studentMName = "studentMName";
+	private static final String studentRecordId = 		"studentId";
+	private static final String studentCourse 	= 		"studentCourse";
+	private static final String studentAddress 	= 		"studentAddress";
+	private static final String studentFees 	=		"studentFees";
 
 
-	//student final result table
-	private static final String id  = "id";
-	private static final String forginKey  = "forginKey";
+    private final ArrayList<StudentData> contact_list = new ArrayList<StudentData>();
 
-
-
-	// Contacts Table Columns names
-    private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_PH_NO = "phone_number";
-    private static final String KEY_EMAIL = "email";
-    private final ArrayList<Contact> contact_list = new ArrayList<Contact>();
 
     public DatabaseHandler(Context context) {
 	super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -64,25 +48,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-//
-//	String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
-//		+ KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-//		+ KEY_PH_NO + " TEXT," + KEY_EMAIL + " TEXT" + ")";
 
-		// query to create student table
-		String CREATE_STUDENT_TABLE = "CREATE TABLE " + TABLE_STUDENT + "("
-				+ studentId + " INTEGER PRIMARY KEY," + studentName + " TEXT,"
-				+ studentKey + " TEXT," + studentCourse + " TEXT" +")";
+		// query to create student Data Table
+		String CREATE_STUDENT_TABLE = "CREATE TABLE " + TABLE_STUDENT_DATA + "("
+				+ studentId + " TEXT," + studentName + " TEXT" +")";
 
-
-		//query to create student data table
-		String CREATE_STUDENT_DATA_TABLE = "CREATE TABLE " + TABLE_STUDENT_DATA + "("
-				+ studentDataId + " INTEGER PRIMARY KEY," + studentFName + " TEXT,"
-				+ studentMName + " TEXT" +")";
+		//query to create student record Table
+		String CREATE_STUDENT_DATA_TABLE = "CREATE TABLE " + TABLE_STUDENT_RECORD + "("
+				+ studentRecordId + " TEXT," + studentCourse + " TEXT,"
+				+ studentAddress + " TEXT"  + studentFees + " TEXT" +")";
 
 
-		String CREATE_TABLE_FINAL_STUDENT_RESULT = "CREATE TABLE " + TABLE_FINAL_RESULT + "("
-				+ id + " INTEGER PRIMARY KEY, "  + forginKey + " TEXT, " + "FOREIGN KEY ("+forginKey+") REFERENCES "+TABLE_STUDENT+"("+studentDataId+"))";
+//		String CREATE_TABLE_FINAL_STUDENT_RESULT = "CREATE TABLE " + TABLE_FINAL_RESULT + "("
+//				+ id + " INTEGER PRIMARY KEY, "  + forginKey + " TEXT, " + "FOREIGN KEY ("+forginKey+") REFERENCES "+TABLE_STUDENT+"("+studentDataId+"))";
 
 
 
@@ -93,98 +71,74 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 		db.execSQL(CREATE_STUDENT_TABLE);
 		db.execSQL(CREATE_STUDENT_DATA_TABLE);
-		db.execSQL(CREATE_TABLE_FINAL_STUDENT_RESULT);
+//		db.execSQL(CREATE_TABLE_FINAL_STUDENT_RESULT);
     }
 
     // Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 	// Drop older table if existed
-	db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENT);
 	db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENT_DATA);
+	db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENT_RECORD);
 	// Create tables again
 	onCreate(db);
     }
 
 
 	// add new student record
-	public void Add_Student(Student student){
+	public void Add_Student(StudentData student){
 
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
+		values.put(studentId,student.studentId);
 		values.put(studentName, student.studentName);
-		values.put(studentKey,student.studentKey);
-		values.put(studentCourse, student.studentCourse); // Contact Email
-		// Inserting Row
-		db.insert(TABLE_STUDENT, null, values);
 
-		ContentValues values1 = new ContentValues();
-		values1.put(forginKey,student.studentKey);
-		db.insert(TABLE_FINAL_RESULT,null,values1);
-
-		db.close(); // Closing database connection
-
-	}
-
-	public void Add_Student_Data(StudentData studentData){
-
-		SQLiteDatabase db = this.getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put(studentFName, studentData.studentFName); // Contact Phone
-		values.put(studentMName, studentData.studentMName); // Contact Email
-		// Inserting Row
+		// Inserting
 		db.insert(TABLE_STUDENT_DATA, null, values);
 		db.close(); // Closing database connection
-
 	}
 
-    /**
-     * All CRUD(Create, Read, Update, Delete) Operations
-     */
+	public void Add_Student_Record(StudentRecord studentRecord){
 
-    // Adding new contact
-    public void Add_Contact(Contact contact) {
-	SQLiteDatabase db = this.getWritableDatabase();
-	ContentValues values = new ContentValues();
-	values.put(KEY_NAME, contact.getName()); // Contact Name
-	values.put(KEY_PH_NO, contact.getPhoneNumber()); // Contact Phone
-	values.put(KEY_EMAIL, contact.getEmail()); // Contact Email
-	// Inserting Row
-	db.insert(TABLE_CONTACTS, null, values);
-	db.close(); // Closing database connection
-    }
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(studentCourse, studentRecord.studentCourse);
+		values.put(studentAddress, studentRecord.studentAddress);
+		values.put(studentFees, studentRecord.studentFees);
+		// Inserting
+		db.insert(TABLE_STUDENT_RECORD, null, values);
+		db.close(); // Closing database connection
+	}
 
 
 	// get student record
-	public Student getStudent(int id){
+	public StudentData getStudentData(String id){
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.query(TABLE_STUDENT, new String[] { studentId,
-						studentName, studentCourse}, studentId + "=?",
-				new String[] { String.valueOf(id) }, null, null, null, null);
+		Cursor cursor = db.query(TABLE_STUDENT_DATA, new String[] { studentId,
+						studentName}, studentId + "=?",
+				new String[] { id }, null, null, null, null);
 		if (cursor != null)
 			cursor.moveToFirst();
-		Student student = new Student();
-		student.studentId = Integer.parseInt(cursor.getString(0));
-		student.studentName = cursor.getString(1);
-		student.studentCourse = cursor.getString(2);
+		StudentData student = new StudentData();
+		student.studentId = cursor.getString(0);
+		student.studentName	= cursor.getString(1);
 		// return contact
 		cursor.close();
 		db.close();
 		return student;
 	}
 
-	public ArrayList<Student>  fireRowQuery(){
+	public ArrayList<StudentData>  fireRowQuery(){
 		int i = 0;
 
-		ArrayList<Student> students = new ArrayList<Student>();
+		ArrayList<StudentData> students = new ArrayList<StudentData>();
 		try {
 			SQLiteDatabase db = this.getReadableDatabase();
-			Cursor cursor = db.rawQuery("select "+studentName +" , "+studentCourse+ " from " + TABLE_STUDENT +" order by "+studentName ,null);
+			Cursor cursor = db.rawQuery("select "+studentName +" , "+studentCourse+ " from " + TABLE_STUDENT_DATA +" order by "+studentName ,null);
 			if (cursor.moveToFirst()) {
 				do {
-					Student student = new Student();
+					StudentData student = new StudentData();
 					student.studentName = cursor.getString(0);
-					student.studentCourse = cursor.getString(1);
 					students.add(student);
 				} while (cursor.moveToNext());
 			}
@@ -198,48 +152,48 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
 	// get student
-	public StudentData getStudentData(int id){
+	public StudentRecord getStudentRecord(int id){
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.query(TABLE_STUDENT_DATA, new String[] { studentId,
-						studentFName, studentMName}, studentId + "=?",
+		Cursor cursor = db.query(TABLE_STUDENT_RECORD, new String[] { studentRecordId,
+						studentCourse, studentAddress,studentFees}, studentRecordId + "=?",
 				new String[] { String.valueOf(id) }, null, null, null, null);
 		if (cursor != null)
 			cursor.moveToFirst();
-		StudentData studentData = new StudentData();
-		studentData.studentId = Integer.parseInt(cursor.getString(0));
-		studentData.studentFName= cursor.getString(1);
-		studentData.studentMName = cursor.getString(2);
+		StudentRecord studentRecord	 	= 	new StudentRecord();
+		studentRecord.studentId 		= 	cursor.getString(0);
+		studentRecord.studentCourse	= 		cursor.getString(1);
+		studentRecord.studentAddress 	= 	cursor.getString(2);
+		studentRecord.studentFees		=	cursor.getString(3);
 		// return contact
 		cursor.close();
 		db.close();
-		return studentData;
+		return studentRecord;
 	}
 
 
 	// update student record
-	public int updateStudent(Student student) {
+	public int updateStudent(StudentData student) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(studentName, student.studentName);
-		values.put(studentCourse, student.studentCourse);
 		// updating row
-		return db.update(TABLE_STUDENT, values, studentId + " = ?",
-				new String[] { String.valueOf(student.studentId)});
+		return db.update(TABLE_STUDENT_DATA, values, studentId + " = ?",
+				new String[] { student.studentId });
 	}
 
 
 	// update student data
-	public int updateStudent(StudentData studentData) {
+	public int updateStudentRecord(StudentRecord studentRecord) {
 		SQLiteDatabase db = this.getWritableDatabase();
-
 		ContentValues values = new ContentValues();
-		values.put(studentId, studentData.studentId);
-		values.put(studentFName, studentData.studentFName);
-		values.put(studentMName, studentData.studentMName);
+		values.put(studentId, studentRecord.studentId);
+		values.put(studentCourse, studentRecord.studentCourse);
+		values.put(studentAddress, studentRecord.studentAddress);
+		values.put(studentFees,studentRecord.studentFees);
 
 		// updating row
-		return db.update(TABLE_STUDENT_DATA, values, KEY_ID + " = ?",
-				new String[] { String.valueOf(studentData.studentId)});
+		return db.update(TABLE_STUDENT_DATA, values, studentId + " = ?",
+				new String[] { String.valueOf(studentRecord.studentId)});
 
 	}
 
@@ -247,44 +201,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
 	// get all student records
-	public ArrayList<Student> getAllStudent() {
-		ArrayList<Student> students = new ArrayList<Student>();
+	public ArrayList<StudentData> getAllStudentData() {
+		ArrayList<StudentData> students = new ArrayList<StudentData>();
 		try {
-			String selectQuery = "SELECT  * FROM " + TABLE_STUDENT;
+			String selectQuery = "SELECT  * FROM " + TABLE_STUDENT_DATA;
 			SQLiteDatabase db = this.getWritableDatabase();
 			Cursor cursor = db.rawQuery(selectQuery, null);
 			if (cursor.moveToFirst()) {
 				do {
-					Student student = new Student();
-					student.studentId = Integer.parseInt(cursor.getString(0));
+					StudentData student = new StudentData();
+					student.studentId =  cursor.getString(0);
 					student.studentName = cursor.getString(1);
-					student.studentKey = cursor.getString(2);
-					student.studentCourse = cursor.getString(3);
-					students.add(student);
-				} while (cursor.moveToNext());
-			}
-			cursor.close();
-			db.close();
-			return students;
-		} catch (Exception e) {
-			Log.e("all_contact", "" + e);
-		}
-		return students;
-	}
-
-
-	// get all result data
-	public ArrayList<FinalResult> getAllStudentResult() {
-		ArrayList<FinalResult> students = new ArrayList<FinalResult>();
-		try {
-			String selectQuery = "SELECT  * FROM " + TABLE_FINAL_RESULT;
-			SQLiteDatabase db = this.getWritableDatabase();
-			Cursor cursor = db.rawQuery(selectQuery, null);
-			if (cursor.moveToFirst()) {
-				do {
-					FinalResult student = new FinalResult();
-					student.id = Integer.parseInt(cursor.getString(0));
-					student.forginKey = cursor.getString(1);
 					students.add(student);
 				} while (cursor.moveToNext());
 			}
@@ -299,19 +226,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
 	// get all student data
-	public ArrayList<StudentData> getAllStudentData(){
+	public ArrayList<StudentRecord> getAllStudentRecords(){
 
-		ArrayList<StudentData> students = new ArrayList<StudentData>();
+		ArrayList<StudentRecord> students = new ArrayList<StudentRecord>();
 		try {
-			String selectQuery = "SELECT  * FROM " + TABLE_STUDENT_DATA;
+			String selectQuery = "SELECT  * FROM " + TABLE_STUDENT_RECORD;
 			SQLiteDatabase db = this.getWritableDatabase();
 			Cursor cursor = db.rawQuery(selectQuery, null);
 			if (cursor.moveToFirst()) {
 				do {
-					StudentData student = new StudentData();
-					student.studentId = Integer.parseInt(cursor.getString(0));
-					student.studentFName = cursor.getString(1);
-					student.studentMName = cursor.getString(2);
+					StudentRecord student = new StudentRecord();
+					student.studentId 	 = cursor.getString(0);
+					student.studentAddress = cursor.getString(1);
+					student.studentCourse = cursor.getString(2);
+					student.studentFees	= cursor.getString(3);
 					students.add(student);
 				} while (cursor.moveToNext());
 			}
@@ -325,37 +253,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 
 	// Delete Student Record
-	public void delete_Student(int id) {
+	public void deleteStudentData(String id) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(TABLE_STUDENT, studentId + " = ?",
-				new String[] { String.valueOf(id) });
+		db.delete(TABLE_STUDENT_DATA, studentId + " = ?",
+				new String[] { id });
 		db.close();
 	}
 
 	// Delete Student Data Record
-	public void delete_Student_Data(int id) {
+	public void deleteStudnetRecord(int id) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(TABLE_STUDENT_DATA, studentDataId + " = ?",
+		db.delete(TABLE_STUDENT_RECORD, studentRecordId + " = ?",
 				new String[] { String.valueOf(id) });
 		db.close();
 	}
 
-
-	// number of records in student table
-	public int get_All_studentsRecords() {
-		String countQuery = "SELECT  * FROM " + TABLE_STUDENT;
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.rawQuery(countQuery, null);
-		cursor.close();
-		return cursor.getCount();
-	}
-
-	// number of records in student data table
-	public int get_All_studentsRecordsData() {
-		String countQuery = "SELECT  * FROM " + TABLE_STUDENT_DATA;
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.rawQuery(countQuery, null);
-		cursor.close();
-		return cursor.getCount();
-	}
 }

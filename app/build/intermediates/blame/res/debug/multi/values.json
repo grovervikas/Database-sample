@@ -11,14 +11,7 @@
                     "endOffset": 108
                 },
                 "from": {
-                    "file": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/src/main/res/values/dimens.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 89,
-                        "endColumn": 57,
-                        "endOffset": 142
-                    }
+                    "file": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/src/main/res/values/dimens.xml"
                 }
             },
             {
@@ -30,14 +23,7 @@
                     "endOffset": 164
                 },
                 "from": {
-                    "file": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/src/main/res/values/dimens.xml",
-                    "position": {
-                        "startLine": 4,
-                        "startColumn": 4,
-                        "startOffset": 147,
-                        "endColumn": 55,
-                        "endOffset": 198
-                    }
+                    "file": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/src/main/res/values/dimens.xml"
                 }
             },
             {
@@ -49,14 +35,7 @@
                     "endOffset": 217
                 },
                 "from": {
-                    "file": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/src/main/res/values/strings.xml",
-                    "position": {
-                        "startLine": 4,
-                        "startColumn": 4,
-                        "startOffset": 109,
-                        "endColumn": 52,
-                        "endOffset": 157
-                    }
+                    "file": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/src/main/res/values/strings.xml"
                 }
             },
             {
@@ -68,14 +47,7 @@
                     "endOffset": 270
                 },
                 "from": {
-                    "file": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/src/main/res/values/strings.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 56,
-                        "endColumn": 52,
-                        "endOffset": 104
-                    }
+                    "file": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/src/main/res/values/strings.xml"
                 }
             },
             {
@@ -87,14 +59,7 @@
                     "endOffset": 323
                 },
                 "from": {
-                    "file": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/src/main/res/values/strings.xml",
-                    "position": {
-                        "startLine": 5,
-                        "startColumn": 4,
-                        "startOffset": 162,
-                        "endColumn": 52,
-                        "endOffset": 210
-                    }
+                    "file": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/src/main/res/values/strings.xml"
                 }
             },
             {
@@ -102,41 +67,44 @@
                     "startLine": 7,
                     "startColumn": 4,
                     "startOffset": 328,
-                    "endLine": 13,
-                    "endColumn": 12,
-                    "endOffset": 614
+                    "endColumn": 79,
+                    "endOffset": 403
                 },
                 "from": {
-                    "file": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/src/main/res/values/styles.xml",
+                    "file": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/src/main/res/values/strings.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
-                        "startOffset": 186,
-                        "endLine": 12,
-                        "endColumn": 12,
-                        "endOffset": 472
+                        "startOffset": 215,
+                        "endColumn": 79,
+                        "endOffset": 290
                     }
                 }
             },
             {
                 "to": {
-                    "startLine": 14,
+                    "startLine": 8,
                     "startColumn": 4,
-                    "startOffset": 619,
-                    "endLine": 16,
+                    "startOffset": 408,
+                    "endLine": 14,
                     "endColumn": 12,
-                    "endOffset": 774
+                    "endOffset": 694
                 },
                 "from": {
-                    "file": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/src/main/res/values/styles.xml",
-                    "position": {
-                        "startLine": 15,
-                        "startColumn": 4,
-                        "startOffset": 510,
-                        "endLine": 17,
-                        "endColumn": 12,
-                        "endOffset": 665
-                    }
+                    "file": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/src/main/res/values/styles.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 699,
+                    "endLine": 17,
+                    "endColumn": 12,
+                    "endOffset": 854
+                },
+                "from": {
+                    "file": "/home/muadmin/Downloads/SQLite-Database-Example-master1/app/src/main/res/values/styles.xml"
                 }
             }
         ]

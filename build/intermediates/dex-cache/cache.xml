@@ -1,26 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" >
-
-    <item
-        jar="/home/muadmin/Downloads/SQLite-Database-Example-master1/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="96c40903aba90840407863ebfd2c035f942210a4">
-        <dex dex="/home/muadmin/Downloads/SQLite-Database-Example-master1/app/build/intermediates/pre-dexed/debug/instant-run_11d8f4d2a2c88ffbcd7ba06cee30c473be59fa12.jar" />
-    </item>
-    <item
-        jar="/home/muadmin/Downloads/SQLite-Database-Example-master1/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="cab991f2cf0f7f4d5883b52bae9624169e371c37">
-        <dex dex="/home/muadmin/Downloads/SQLite-Database-Example-master1/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_c8db01ee8c25ce935492f85eae9b905cdaecb5c0.jar" />
-    </item>
-    <item
-        jar="/home/muadmin/Android/Sdk/extras/android/m2repository/com/android/support/support-v4/18.0.0/support-v4-18.0.0.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
-        <dex dex="/home/muadmin/Downloads/SQLite-Database-Example-master1/app/build/intermediates/pre-dexed/debug/support-v4-18.0.0_f3fe9ffafea2280aea60fc21cde9be2e6e6db6c7.jar" />
-    </item>
-
-</items>
+<items version="2" />

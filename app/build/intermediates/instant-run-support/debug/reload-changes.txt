@@ -1,0 +1,2 @@
+CHANGED,/home/muadmin/Downloads/SQLite-Database-Example-master1/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/chintan/khetiya/sqlite/cursor/UpdateStudentActivity$override.class
+CHANGED,/home/muadmin/Downloads/SQLite-Database-Example-master1/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/android/tools/fd/runtime/AppPatchesLoaderImpl.class
