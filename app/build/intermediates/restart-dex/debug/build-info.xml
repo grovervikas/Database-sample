@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instant-run
+    abi="armeabi-v7a,armeabi"
+    api-level="19"
+    density="xxhdpi"
+    format="7"
+    timestamp="4923902991013"
+    token="-5866402695946417621" >
+
+    <task
+        name="javac"
+        duration="2206" />
+    <task
+        name="instant-run-dex"
+        duration="0" />
+    <task
+        name="instant-run-transform"
+        duration="222" />
+    <task
+        name="verifier"
+        duration="9" />
+
+    <artifact
+        location="/home/muadmin/Downloads/SQLite-Database-Example-master1/app/build/outputs/apk/app-debug.apk"
+        type="MAIN" />
+
+    <build timestamp="4923902991013" >
+        <artifact
+            location="/home/muadmin/Downloads/SQLite-Database-Example-master1/app/build/outputs/apk/app-debug.apk"
+            type="MAIN" />
+    </build>
+
+</instant-run>
